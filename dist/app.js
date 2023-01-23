@@ -1,14 +1,12 @@
 import express from "express";
-import cors from "cors";
-
+import { addNewSchedule, getAllSchedules } from "./controllers/calculatorController.js";
 var server = express();
-server.use(cors());
-
+server.use(express.json());
 server.get('/health', function (req, res) {
     res.send('API up');
 });
-server.get('/schedule', convertCltToPj);
-
+server.post('/schedule', addNewSchedule);
+server.get('/schedule', getAllSchedules);
 server.listen(5000, function () {
     console.log('Executando');
 });

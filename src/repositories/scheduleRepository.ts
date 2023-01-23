@@ -1,5 +1,5 @@
-import { db } from "src/db/db";
-import { Schedule } from "src/protocols/schedule";
+import { db } from "../db/db.js";
+import { Schedule } from "../protocols/schedule.js";
 import { QueryResult } from "pg";
 
 export async function newSchedule (schedule: Schedule) {

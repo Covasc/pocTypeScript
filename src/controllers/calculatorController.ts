@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { newSchedule, scheduleList } from "src/repositories/scheduleRepository";
-import { Schedule } from "../protocols/schedule";
+import { newSchedule, scheduleList } from "../repositories/scheduleRepository.js";
+import { Schedule } from "../protocols/schedule.js";
 
 
 export async function addNewSchedule (req: Request, res: Response) {
