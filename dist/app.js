@@ -1,7 +1,5 @@
 import express from "express";
 import cors from "cors";
-import { convertCltToPj } from "./controllers/calculatorController.js";
-
 
 var server = express();
 server.use(cors());

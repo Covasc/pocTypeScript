@@ -1,45 +1,30 @@
 import { Request, Response } from "express";
+import { newSchedule, scheduleList } from "src/repositories/scheduleRepository";
 import { Schedule } from "../protocols/schedule";
 
-//criar tipos -convenção: letra maiúscula-
 
+export async function addNewSchedule (req: Request, res: Response) {
+    
+    const schedule: Schedule = req.body;
 
-//inferencia de tipo
-const nome: string = "Lucas";
-const valor: number = 12;
+    try {
+        await newSchedule(schedule);
+        res.sendStatus(200);
 
-//tipagem de funções
-export function sayHello (name: string): string {
-    return `Hello ${name}`;
+    } catch (error) {
+        console.log(error);
+        return res.sendStatus(500);
+    }
 }
 
-//arrays
-const jobs: string[] = [ `Cortador`, `Lavador`, `Arrumador`];
-
-// operador pipe | define 2 tipos validos 
-let resultado: boolean | string = true;
-resultado = `lucas`;
-
-const horarios: (string | boolean)[] = [`Lucas`, true];
-
-//tipagem objetos
-//Para um array de objetos tipados, adicionar um {...}[].
-//const corteAgendado: Schedule = {
-//     nome: 'Lucas',
-//     data: '23-01-22',
-//     funcionario: 'Cassiano',
-//     corte: 'Degrade',
-//     valor: 37
-// }
-
-//importação de objetos tipados - Tipos primitivos
-export function convertCltToPj (req: Request, res: Response) {
+export async function getAllSchedules (req: Request, res: Response) {
     
-    const {salary} = req.query;
+    try {
+        const { rows: schedules } = await scheduleList();       
+        res.send(schedules).status(200);
 
-    const newSalary = Number(salary) + (Number(salary)*0.3);
-
-    res.send({
-        resultado: `O salário deve ser pelo menos ${newSalary}` 
-    });
+    } catch (error) {
+        console.log(error);
+        return res.sendStatus(500);
+    }
 }
